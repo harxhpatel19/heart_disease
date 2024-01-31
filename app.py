@@ -1,16 +1,28 @@
-# Import required libraries
 import streamlit as st
 import pickle
 import pandas as pd
+import requests
+from io import BytesIO
+
+# Function to load model from URL
+def load_model_from_url(url):
+    response = requests.get(url)
+    model = pickle.load(BytesIO(response.content))
+    return model
 
 # Load the trained model
-model_filename = 'banglore_home_prices_model.pickle'
-with open(model_filename, 'rb') as file:
-    model = pickle.load("https://github.com/harxhpatel19/heart_disease/blob/main/banglore_home_prices_model.pickle")
+model_url = 'https://github.com/harxhpatel19/heart_disease/raw/main/banglore_home_prices_model.pickle'
+model = load_model_from_url(model_url)
+
+# Function to load dataset from URL
+def load_dataset_from_url(url):
+    response = requests.get(url)
+    df = pd.read_csv(BytesIO(response.content))
+    return df
 
 # Load the dataset used for training
-df_filename = 'bhp.csv'
-df = pd.read_csv("https://github.com/harxhpatel19/heart_disease/blob/main/bhp.csv")
+df_url = 'https://github.com/harxhpatel19/heart_disease/raw/main/bhp.csv'
+df = load_dataset_from_url(df_url)
 
 # Create a Streamlit web app
 st.title('Bangalore House Price Prediction')
