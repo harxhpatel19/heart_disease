@@ -6,11 +6,11 @@ import pandas as pd
 # Load the trained model
 model_filename = 'banglore_home_prices_model.pickle'
 with open(model_filename, 'rb') as file:
-    model = pickle.load(file)
+    model = pickle.load("https://github.com/harxhpatel19/heart_disease/blob/main/banglore_home_prices_model.pickle")
 
 # Load the dataset used for training
 df_filename = 'bhp.csv'
-df = pd.read_csv(df_filename)
+df = pd.read_csv("https://github.com/harxhpatel19/heart_disease/blob/main/bhp.csv")
 
 # Create a Streamlit web app
 st.title('Bangalore House Price Prediction')
